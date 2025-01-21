@@ -45,7 +45,6 @@ export class AppComponent {
       .split('') 
       .map(caracter => caracter.charCodeAt(0).toString(2).padStart(8, '0')) 
       .join(' '); 
-    console.log('Texto convertido a binario:', this.respuestaNumber);
   }
 
   convertirBinario(): void {
@@ -53,6 +52,5 @@ export class AppComponent {
       .split(' ') 
       .map(bin => String.fromCharCode(parseInt(bin, 2))) 
       .join(''); 
-    console.log('Binario convertido a texto:', this.respuestaText);
   }
 }
