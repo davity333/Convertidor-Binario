@@ -15,60 +15,85 @@
   }
   
 </style>
-
 <main>
   <div class="flex justify-center pt-28">
-  <h1 class="text-5xl text-[#6776d0]" id="text">CONVERTIDOR BINARIA</h1>
-</div>
-<div class="flex justify-center text-2xl font-light mt-2">
-<p>Convierta fácilmente cualquier cadena de texto a su valor binaria correspondiente.</p>
-</div>
-
-<div class="flex justify-center gap-10 mt-10 pl-20 pr-20" *ngIf="showViceversa">
-  <!-- Primera Columna -->
-  <div class="flex flex-col w-1/2">
-    <label for="textarea1" class="mb-2 text-sm font-medium">Texto</label>
-    <textarea 
-    id="textarea1" 
-    class="border-[2px] border-[#00000052] focus:border-[#39499c] outline-none w-full h-24" 
-    (input)="letra($event)"
-    [value]="letter"></textarea>
+    <h1 class="text-5xl text-[#6776d0]" id="text">CONVERTIDOR BINARIA</h1>
+  </div>
+  <div class="flex justify-center text-2xl font-light mt-2">
+    <p>Convierta fácilmente cualquier cadena de texto a su valor binaria correspondiente.</p>
   </div>
 
-  <!-- Segunda Columna -->
-  <div class="flex flex-col w-1/2">
-    <label for="textarea2" class="mb-2 text-sm font-medium">Binaria</label>
-    <textarea id="textarea2" class="outline-none w-full h-24" readonly></textarea>
-  </div>
-</div>
+  <div class="flex justify-center gap-10 mt-10 pl-20 pr-20" *ngIf="showText">
+    <!-- Primera Columna -->
+    <div class="flex flex-col w-1/2">
+      <label for="textarea1" class="mb-2 text-sm font-medium">Texto</label>
+      <textarea 
+        id="textarea1" 
+        class="border-[2px] border-[#00000052] focus:border-[#39499c] outline-none w-full h-24" 
+        [(ngModel)]="text"
+        (input)="letra($event)"
+      ></textarea>
+    </div>
 
-<div class="flex justify-center gap-10 mt-10 pl-20 pr-20" *ngIf="!showViceversa">
-  <!-- Primera Columna -->
-  <div class="flex flex-col w-1/2">
-    <label for="textarea1" class="mb-2 text-sm font-medium">Binario</label>
-    <textarea id="textarea1" 
-    class="border-[2px] border-[#00000052] focus:border-[#39499c] outline-none w-full h-24" 
-    (input)="binario($event)"
-    [value]="binary"></textarea>
+    <!-- Segunda Columna -->
+    <div class="flex flex-col w-1/2">
+      <label for="textarea2" class="mb-2 text-sm font-medium">Binaria</label>
+      <textarea 
+        id="textarea2" 
+        class="outline-none w-full h-24" 
+        [value]="respuestaNumber" 
+        readonly
+      ></textarea>
+    </div>
   </div>
-  
 
-  <!-- Segunda Columna -->
-  <div class="flex flex-col w-1/2">
-    <label for="textarea2" class="mb-2 text-sm font-medium">Texto</label>
-    <textarea id="textarea2" class="outline-none w-full h-24" readonly></textarea>
+  <div class="flex justify-center gap-10 mt-10 pl-20 pr-20" *ngIf="showBinary">
+    <!-- Primera Columna -->
+    <div class="flex flex-col w-1/2">
+      <label for="textarea1" class="mb-2 text-sm font-medium">Binario</label>
+      <textarea 
+        id="textarea1" 
+        class="border-[2px] border-[#00000052] focus:border-[#39499c] outline-none w-full h-24" 
+        [(ngModel)]="number"
+        (input)="binario($event)"
+      ></textarea>
+    </div>
+
+    <!-- Segunda Columna -->
+    <div class="flex flex-col w-1/2">
+      <label for="textarea2" class="mb-2 text-sm font-medium">Texto</label>
+      <textarea 
+        id="textarea2" 
+        class="outline-none w-full h-24" 
+        [value]="respuestaText" 
+        readonly
+      ></textarea>
+    </div>
   </div>
-</div>
 
-<div class="flex justify-center mt-6 gap-5">
-  <button class="bg-[#6776d0] hover:bg-[#5e70d6] text-white font-medium py-2 px-4 rounded-md" *ngIf="showViceversa" (click)="convertirBinario(letter)">Convertir a Binario</button>
-  <button class="bg-[#6776d0] hover:bg-[#5e70d6] text-white font-medium py-2 px-4 rounded-md" *ngIf="!showViceversa" (click)="convertirTexto(binary)">Convertir a Texto</button>
-  <button class="bg-[#6776d0] hover:bg-[#5e70d6] text-white font-medium py-2 px-3 rounded-md  gap-2 flex" (click)="viceversa()">Viceversa
-    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M280-160 80-360l200-200 56 57-103 103h287v80H233l103 103-56 57Zm400-240-56-57 103-103H440v-80h287L624-743l56-57 200 200-200 200Z"/></svg>
-  </button>
-</div>
+  <div class="flex justify-center mt-6 gap-5">
+    <button 
+      class="bg-[#6776d0] hover:bg-[#5e70d6] text-white font-medium py-2 px-4 rounded-md" 
+      *ngIf="showText" 
+      (click)="convertirTexto()"
+    >
+      Convertir a Binario
+    </button>
+    <button 
+      class="bg-[#6776d0] hover:bg-[#5e70d6] text-white font-medium py-2 px-4 rounded-md" 
+      *ngIf="showBinary" 
+      (click)="convertirBinario()"
+    >
+      Convertir a Texto
+    </button>
+    <button 
+      class="bg-[#6776d0] hover:bg-[#5e70d6] text-white font-medium py-2 px-3 rounded-md gap-2 flex" 
+      (click)="viceversa()"
+    >
+      Viceversa
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+        <path d="M280-160 80-360l200-200 56 57-103 103h287v80H233l103 103-56 57Zm400-240-56-57 103-103H440v-80h287L624-743l56-57 200 200-200 200Z"/>
+      </svg>
+    </button>
+  </div>
 </main>
-
-
-
-<router-outlet />
